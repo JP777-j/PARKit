@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARKit</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+    <!-- nice selecy -->
+    <link rel="stylesheet" href="css/nice-select.min.css">
+  
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+  
+    <!-- Custom styles for this template -->
+    
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <span>
+                <img src="./images/logo.png" alt="" style="height: 100px; width: 170px;">
+              </span>
+            </a>
+  
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=" text-slate-700"> </span>
+            </button>
+  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav  ">
+                <li class="nav-item ">
+                  <a class="nav-link " href="index.html" style="color:#90989e">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html" style="color: #90989e;"> About</a>
+                </li>
+                <li class="nav-item active text-slate-600">
+                  <a class="nav-link" href="separk.html" style="color: white;">Parkings</a><span class="sr-only">(current)</span>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="why.html" style="color: #90989e;">Why Us</a>
+                </li>
+              </ul>
+              <form class="form-inline">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"style="color: #90989e;" >
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- end header section -->
+      <div  style="position: absolute; top: 20%; left: 30%;">
+
+        <h1>PARKING SLOTS IN ONDIPUDUR</h1>
+      </div>
+      <div style="position: absolute;top: 40%; right: 10%;"> 
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15665.999639970009!2d77.04343319214173!3d11.001069429755143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857b6a59a66cf%3A0xc0e0de746904343b!2sChinthamani%20Two%20wheeler%20parking!5e0!3m2!1sen!2sin!4v1706420603992!5m2!1sen!2sin" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="main">
+          <div class="as">
+              <h2 style="padding-right: 40px;">Total Slots</h2>
+              <p class="value" id="totalSlots" style="font-size: 35px;padding-right: 20px;padding-top: 70px;font-weight: bold;text-align: center;color:#0097b2;">10</p>
+          </div>
+          <div class="ts">
+              <h2> Available Slots</h2>
+              <p class="value" id="Slots" style="font-size: 35px;padding-left: 60px;padding-top: 70px;font-weight: bold; color:#0097b2;">Loading... </p>
+          </div>
+      </div>
+      <style>
+        .main{
+          position: absolute ;
+          top: 40%;
+          left: 10%;
+          width: 40%;
+          height: 40%;
+
+          background-color:white;
+          box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        .as{
+          position: absolute;
+          top: 5%;
+          right: 5%;
+        }
+       
+        .ts{
+          position: absolute;
+          top: 5%;
+          left: 5%;
+        }
+      </style>
+      <!-- the scripts needed -->
+      
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+      <script type="module">
+          // Your web app's Firebase configuration
+          var firebaseConfig = {
+              apiKey: "AIzaSyDvSt5ICYfBRxdhenVdPg21t-MDrVqyT1U",
+              authDomain: "vacancies-ee2ac.firebaseapp.com",
+              databaseURL: "https://vacancies-ee2ac-default-rtdb.asia-southeast1.firebasedatabase.app",
+              projectId: "vacancies-ee2ac",
+              storageBucket: "vacancies-ee2ac.appspot.com",
+              messagingSenderId: "1013548297483",
+              appId: "1:1013548297483:web:54b95102374bd59980c60e"
+      
+          };
+          // Initialize Firebase
+          firebase.initializeApp(firebaseConfig);
+  
+          // getting reference
+          var database = firebase.database();
+          var dataRefAvailable = database.ref('Parking/Slots');
+  
+          // fetching data
+      
+  
+          dataRefAvailable.on('value', function(snapshot){
+              var Slots = snapshot.val();
+              document.getElementById('Slots').innerHTML = Slots;
+          });
+      </script>
+      
+      <div style="display: flex; flex-direction:column;">
+     
+     <div style="position: absolute; top:83%; left: 37%;">
+       <a href="pay.html"> <button style="background-color: #90989e; padding: 7px; border: #90989e; color: white; border-radius: 10px;">PAY</button></a>
+      </div>
+      <div style="position: absolute; top:83%; left: 20%;">
+        <h3 style="color: #0097b2;">Parking fee:₹50</h3>
+      </div>
+      
+    </div>
+</body>
+</html>
